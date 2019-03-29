@@ -1,0 +1,68 @@
+@font-face {
+    font-family: keyboard;
+    src: url('../font/keyboard.otf') format('opentype');
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url('../image/wall.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+kbd {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 16px;
+    border-radius: 8px;
+    font-family: keyboard, "Arial Rounded", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+kbd>span{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+kbd>button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: none;
+}
+kbd>img{
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+
+kbd:hover>button {
+    display: block;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+}
+
+main div:nth-child(2) {
+    margin-left: 40px;
+}
+
+main div:nth-child(3) {
+    margin-left: 80px;
+}
