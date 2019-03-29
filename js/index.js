@@ -58,32 +58,37 @@ var setImageSrc = function (img, domain) {
         img.src = 'http://' + domain + '/favicon.ico'
     } else {
         img.src = defaultIcon
-    }    
+    }
     img.onerror = function (event) {
         event.target.src = defaultIcon
     }
 }
 
-var createButton = function (key) {
-    var editButton = createTag('button')
-    editButton.textContent = '编辑'
+var createImageButton = function (key) {
+    var editButton = createTag('img')
+    // editButton.textContent = '编辑'
     editButton.dataset.key = key
+    editButton.className = 'edit'
+    editButton.src = './image/edit.png'
     editButton.onclick = function (event) {
         var targetkey = event.target.dataset.key
         log('点击编辑按钮', event)
         var domain = prompt('请输入网址，例如: www.qq.com')
-        hash[targetkey] = domain
+        if (domain) {
+            hash[targetkey] = domain
+            var img = event.target.previousSibling
+            setImageSrc(img, domain)
+            localstorageHelper.saveData(hash)
+        }
 
-        var img = event.target.previousSibling
-        setImageSrc(img, domain)
-        localstorageHelper.saveData(hash)
     }
     return editButton
 }
 
 var createImage = function (domain) {
     var img = createTag('img')
-    setImageSrc(img, domain)    
+    img.className = 'icon'
+    setImageSrc(img, domain)
     return img
 }
 
@@ -103,8 +108,9 @@ var createKeyboard = function () {
             var key = keys[index][j]
 
             var kbd = createTag('kbd')
+            kbd.className = 'mykbd'
             var span = createSpan(key)
-            var editButton = createButton(key)
+            var editButton = createImageButton(key)
             var img = createImage(hash[key])
 
             kbd.appendChild(span)
@@ -125,6 +131,12 @@ var registerListener = function () {
             log('打开链接', url)
             window.open('http://' + url, '_blank')
         }
+    }
+    var kbds = document.querySelectorAll('.mykbd')
+    for(let i = 0;i < kbds.length; i++){
+        kbds[i].addEventListener('click', function(event){
+            log('kbd', event.target.children[2].dataset.key)
+        })
     }
 }
 
